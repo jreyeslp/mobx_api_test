@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../store/todos_store.dart';
-import '../widgets/widgets.dart';
+import '../widgets/todo_list_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
