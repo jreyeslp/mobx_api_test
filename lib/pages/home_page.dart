@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('MobX Todos List'),
         elevation: 0,
       ),
-      body: Column(
+      body: Stack(
         children: [
           Loading(store: store),
           TodoListView(store: store),

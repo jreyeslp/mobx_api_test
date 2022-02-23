@@ -42,11 +42,9 @@ abstract class _TodosStore with Store {
 
   @action
   Future<List<Todo>> fetchTodos() async {
-    print('Fetching todos...');
     todos.clear();
     final future = service.getTodos();
     fetchTodosFuture = ObservableFuture(future);
-    // return todos = ObservableList.of(await service.getTodos());
 
     return todos = ObservableList.of(await future);
   }
