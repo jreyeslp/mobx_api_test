@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../store/todos_store.dart';
-import '../widgets/todo_list_view.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,8 +17,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MobX Todos List'),
+        elevation: 0,
       ),
-      body: TodoListView(store: store),
+      body: Column(
+        children: [
+          Loading(store: store),
+          TodoListView(store: store),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => store.fetchTodos(),
         child: const Icon(

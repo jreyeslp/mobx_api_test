@@ -15,6 +15,17 @@ abstract class _TodosStore with Store {
   @observable
   bool completed = false;
 
+  @observable
+  ObservableFuture<List<Todo>> fetchTodosFuture = emptyResponse;
+
+  @computed
+  bool get hasResults =>
+      fetchTodosFuture != emptyResponse &&
+      fetchTodosFuture.status == FutureStatus.fulfilled;
+
+  static ObservableFuture<List<Todo>> emptyResponse =
+      ObservableFuture.value([]);
+
   @computed
   ObservableList<Todo> get completedTodos =>
       ObservableList.of(todos.where((element) => element.completed == true));
@@ -31,7 +42,12 @@ abstract class _TodosStore with Store {
 
   @action
   Future<List<Todo>> fetchTodos() async {
+    print('Fetching todos...');
     todos.clear();
-    return todos = ObservableList.of(await service.getTodos());
+    final future = service.getTodos();
+    fetchTodosFuture = ObservableFuture(future);
+    // return todos = ObservableList.of(await service.getTodos());
+
+    return todos = ObservableList.of(await future);
   }
 }

@@ -9,6 +9,13 @@ part of 'todos_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TodosStore on _TodosStore, Store {
+  Computed<bool>? _$hasResultsComputed;
+
+  @override
+  bool get hasResults =>
+      (_$hasResultsComputed ??= Computed<bool>(() => super.hasResults,
+              name: '_TodosStore.hasResults'))
+          .value;
   Computed<ObservableList<Todo>>? _$completedTodosComputed;
 
   @override
@@ -54,6 +61,21 @@ mixin _$TodosStore on _TodosStore, Store {
     });
   }
 
+  final _$fetchTodosFutureAtom = Atom(name: '_TodosStore.fetchTodosFuture');
+
+  @override
+  ObservableFuture<List<Todo>> get fetchTodosFuture {
+    _$fetchTodosFutureAtom.reportRead();
+    return super.fetchTodosFuture;
+  }
+
+  @override
+  set fetchTodosFuture(ObservableFuture<List<Todo>> value) {
+    _$fetchTodosFutureAtom.reportWrite(value, super.fetchTodosFuture, () {
+      super.fetchTodosFuture = value;
+    });
+  }
+
   final _$fetchTodosAsyncAction = AsyncAction('_TodosStore.fetchTodos');
 
   @override
@@ -66,6 +88,8 @@ mixin _$TodosStore on _TodosStore, Store {
     return '''
 todos: ${todos},
 completed: ${completed},
+fetchTodosFuture: ${fetchTodosFuture},
+hasResults: ${hasResults},
 completedTodos: ${completedTodos},
 visibleTodos: ${visibleTodos}
     ''';

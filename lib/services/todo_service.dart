@@ -8,7 +8,10 @@ class TodoService {
 
   Future<List<Todo>> getTodos() async {
     final url = Uri.https(_url, '/todos', {'userId': '1'});
-    final resp = await http.get(url);
+    final resp = await Future.delayed(
+      const Duration(seconds: 2),
+      () async => await http.get(url),
+    );
 
     final List<dynamic> decodedData = convert.jsonDecode(resp.body);
 
