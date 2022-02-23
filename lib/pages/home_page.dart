@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../store/users_store.dart';
+import '../store/todos_store.dart';
 import '../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,22 +10,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final UsersStore store = UsersStore();
+  final TodosStore store = TodosStore();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MobX User List'),
+        title: const Text('MobX Todos List'),
       ),
-      body: Column(
-        children: <Widget>[
-          LoadingIndicator(store: store),
-          UserListView(store: store),
-        ],
-      ),
+      body: TodoListView(store: store),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => store.fetchUsers(),
+        onPressed: () => store.fetchTodos(),
         child: const Icon(
           Icons.refresh,
         ),
