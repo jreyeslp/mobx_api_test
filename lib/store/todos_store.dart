@@ -35,7 +35,6 @@ abstract class _TodosStore with Store {
     return completed ? completedTodos : todos;
   }
 
-  // Constructor to instantiate the Store and trigger the API fetch
   _TodosStore() {
     fetchTodos();
   }
@@ -47,5 +46,10 @@ abstract class _TodosStore with Store {
     fetchTodosFuture = ObservableFuture(future);
 
     return todos = ObservableList.of(await future);
+  }
+
+  @action
+  void updateSwitchValue(bool value) {
+    completed = value;
   }
 }

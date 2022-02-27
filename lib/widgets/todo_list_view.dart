@@ -35,7 +35,7 @@ class TodoListView extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 value: store.completed,
-                onChanged: (value) => store.completed = value,
+                onChanged: (value) => store.updateSwitchValue(value),
               ),
             ),
             Expanded(
